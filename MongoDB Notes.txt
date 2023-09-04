@@ -1,0 +1,342 @@
+
+
+
+brew search mongo
+
+
+brew uninstall mongodb/brew/mongodb-community@5.0
+
+
+brew tap mongodb/brew
+
+
+brew update
+
+
+brew install mongodb/brew/mongodb-community@6.0
+
+
+
+
+mongod --version
+
+OR
+
+mongo --version
+
+
+
+
+brew services start mongodb/brew/mongodb-community@6.0
+
+
+
+
+brew services stop mongodb/brew/mongodb-community@6.0
+
+
+
+
+
+Type mongosh
+
+mongosh command ———> It is the new interactive shell for MongoDB introduced in MongoDB 5.0. It can be used to connect to a MongoDB instance and perform database operations and administration tasks.
+
+
+
+
+
+DB Commands —>>
+
+
+show dbs
+
+
+Type ‘exit’ to exit mongosh
+
+
+
+
+
+The mongo command line tool is a client application that allows you to interact with a running MongoDB server. Here are the basic steps to use the mongo command line tool:
+
+Make sure that MongoDB is running on your system. You can check if MongoDB is running by typing the command mongod in a command prompt or terminal window.
+
+
+
+
+
+
+
+1. Open a command prompt or terminal window.
+2. Type the command mongod and hit enter.
+3. If MongoDB is running, you will see a message similar to the following: bash  Copy code{"t":{"$date":"2023-03-10T15:23:50.831+00:00"},"s":"I", "c":"NETWORK", "id":23016, "ctx":"listener","msg":"Waiting for connections","attr":{"port":27017,"ssl":"off"}}    This message indicates that MongoDB is listening for incoming connections on port 27017.
+
+
+
+OR
+
+
+You can also use the mongo command-line tool to check if MongoDB is running:
+
+1. Open a command prompt or terminal window.
+2. Type the command mongo and hit enter.
+3. If MongoDB is running, you will see a message similar to the following: css  Copy codeMongoDB shell version v5.1.0 connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb Implicit session: session { "id" : UUID("2f7c85f1-76d6-40cf-b5e6-bf94c47dc319") } MongoDB server version: 5.1.0    This message indicates that you have successfully connected to a running MongoDB instance.
+
+
+
+
+
+
+Type the command mongo and hit enter. This will start the mongo shell and connect to the default MongoDB server running on your local machine. If you want to connect to a different server, you can specify the hostname or IP address of the server as an argument to the mongo command. For example:
+ javascript mongo mongodb://hostname:port/   
+
+
+
+
+Once you are connected to the MongoDB server, you can start entering commands to interact with the server. Here are some examples of commands you can use:
+
+    * show databases - This command will list all the databases available on the server.
+    * use dbname - This command will switch to the specified database.
+    * show collections - This command will list all the collections in the current database.
+    * db.collection_name.find() - This command will return all the documents in the specified collection.
+    * db.collection_name.insertOne() - This command will insert a new document into the specified collection.
+    * db.collection_name.updateOne() - This command will update an existing document in the specified collection.
+    * db.collection_name.deleteOne() - This command will delete an existing document from the specified collection.
+
+
+
+
+When you are finished using the mongo shell, you can type the command exit to close the shell and disconnect from the MongoDB server.
+
+
+
+Type ‘exit’ to exit the mongo command line
+
+
+
+
+
+To install mongodb-compass, run:
+  brew install --cask mongodb-compass
+
+
+
+
+In MongoDB, id's are by default auto-generated
+
+And also we use @Document instead of using @Entity as in case of Jpa Repository
+
+
+
+
+
+
+let a=25
+a
+
+
+
+create database commands ->
+
+use product
+
+// this will create and switch to new product database
+
+
+
+
+db
+
+// tells the current db you are in
+
+
+
+
+
+
+Create new collection command ->
+
+db.createCollection(‘users’)
+
+
+
+
+
+show collections
+
+
+
+
+
+// Creating collection by directly inserting the data
+
+//  Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+
+
+ db.users.insert({name:'himanshu',age:'20'})
+ 
+ 
+ db.users.insertOne({name:'himanshu',age:'20'})
+ 
+ 
+
+
+
+
+Command to drop the collection -->
+
+
+db.users.drop()
+
+
+
+
+Command to drop the database -->
+
+db.dropDatabase()
+
+
+
+
+
+To insert the object/data in the collection ->
+
+db.users.insertOne({name:’Harneet Chug’,age:’31’,city:’Amsterdam’})
+
+
+o/p ==> 
+
+{
+  acknowledged: true,
+  insertedId: ObjectId("644ae46586e215c7934d08ed")
+}
+
+
+
+
+
+Select statement to see the records/objects/documents present in a collection ->
+
+db.users.find()
+
+
+
+
+
+
+
+To insert array of objects in a collection -->
+
+db.books.insertMany([{name:'Think Python',pages:700,price:50},{name:'Our Javascript Book',pages:800,price:300}])
+
+
+Note: 'bulkWrite' only supports insertOne, updateOne, updateMany, deleteOne, deleteMany
+ 
+
+
+
+
+
+There is no fixed schema structure in mongo db. We can add/delete any number of properties in the json object present in the collection as and when required.
+
+
+db.books.insertOne({ name: 'This is funny book', pages: 1000, price: 900, author:'John' })
+
+
+// This means that there is no rule or no enforcement in mongodb that some predefined schema or structure should be present.
+
+
+
+
+
+
+
+Command to add array/list of a property in the object ->
+
+
+db.books.insertOne({ name: 'Fitness book', pages: 8000, price: 10000, author:['john','peter'] })
+
+
+
+
+
+
+
+
+To Update the record/object/document values in the collection ------>>
+
+
+Use the replaceOne() function command to replace/update the document/object in the collection ==>
+
+db.books.replaceOne( { _id: ObjectId("644ae3c386e215c7934d08ec") }, { name: 'The Complete Reference',pages:8000, price:2000 })
+
+
+
+OR
+
+
+db.books.updateOne({_id: ObjectId("644ae70086e215c7934d08f0")},{$set:{name:'Funny Book for Kids'}})
+
+
+
+
+
+
+
+Command to format/beautify the records in the collection -->
+
+db.books.find().pretty()
+ 
+ 
+ 
+
+
+To delete the objects/documents in the collection -->>
+
+db.books.deleteOne({_id: ObjectId("644ae70086e215c7934d08f0")})
+
+
+
+
+
+
+
+Using different Update Operators in MongoDB -->>
+
+
+a. $rename
+
+// To update the object/document's property/field name 
+
+
+db.books.updateOne({_id:  ObjectId("644ae80f86e215c7934d08f1")},{$rename:{name:'bookName'}})
+
+
+
+
+
+// To update the 'name' field of only those objects/documents which have 8000 pages
+
+
+db.books.updateOne({pages:8000},{$rename:{name:'bookName'}}) 
+
+
+
+ 
+ 
+b. $inc
+
+To increment the value of the record/object/document's property/field by the specified amount.
+
+
+db.books.updateOne({_id:ObjectId("644ae70086e215c7934d08f0")},{$inc:{price:60}})
+
+
+
+
+
+
+
+
+
